@@ -1,4 +1,5 @@
 import * as stylex from "@stylexjs/stylex";
+import { Clock } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import { colors, fontSize, fontWeight, radius, spacing } from "../../styles/tokens.stylex";
@@ -40,10 +41,12 @@ const styles = stylex.create({
 		fontSize: fontSize.xxxxxl,
 		fontWeight: fontWeight.bold,
 		fontFamily: "monospace",
-		backgroundImage: "linear-gradient(135deg, #6366f1 0%, #a855f7 100%)",
-		backgroundClip: "text",
-		WebkitBackgroundClip: "text",
-		WebkitTextFillColor: "transparent",
+		color: colors.primary,
+	},
+	titleIcon: {
+		display: "inline-flex",
+		verticalAlign: "middle",
+		marginRight: spacing.sm,
 	},
 	clockSeparator: {
 		fontSize: fontSize.xxxxl,
@@ -98,7 +101,12 @@ export function ClockApp() {
 
 	return (
 		<div {...stylex.props(styles.clockApp)}>
-			<h2 {...stylex.props(styles.title)}>🕐 세계 시계</h2>
+			<h2 {...stylex.props(styles.title)}>
+				<span {...stylex.props(styles.titleIcon)}>
+					<Clock size={20} aria-hidden="true" />
+				</span>
+				세계 시계
+			</h2>
 			<div {...stylex.props(styles.clockMain)}>
 				<div {...stylex.props(styles.digitalClock)}>
 					<span {...stylex.props(styles.clockDigit)}>{hours}</span>

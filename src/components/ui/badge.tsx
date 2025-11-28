@@ -10,7 +10,7 @@ const styles = stylex.create({
 		paddingBottom: spacing.xs,
 		paddingLeft: spacing.md,
 		paddingRight: spacing.md,
-		backgroundColor: "#3f3f46",
+		backgroundColor: colors.cardBorder,
 		borderRadius: radius.sm,
 		fontSize: fontSize.xs,
 		color: colors.muted,

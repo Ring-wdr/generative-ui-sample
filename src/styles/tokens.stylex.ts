@@ -3,32 +3,33 @@ import * as stylex from "@stylexjs/stylex";
 // Media query for light mode
 const LIGHT = "@media (prefers-color-scheme: light)";
 
-// Design tokens as CSS variables using defineVars
+// Design tokens - Game-inspired sharp design
 // Default: dark theme, Light theme via prefers-color-scheme
 export const colors = stylex.defineVars({
 	background: {
-		default: "#0a0a0a",
-		[LIGHT]: "#ffffff",
+		default: "#09090b",
+		[LIGHT]: "#fafafa",
 	},
 	foreground: {
-		default: "#ededed",
-		[LIGHT]: "#171717",
+		default: "#fafafa",
+		[LIGHT]: "#09090b",
 	},
+	// Amber/Gold accent - game-inspired
 	primary: {
-		default: "#6366f1",
-		[LIGHT]: "#4f46e5",
+		default: "#f59e0b",
+		[LIGHT]: "#d97706",
 	},
 	primaryHover: {
-		default: "#818cf8",
-		[LIGHT]: "#6366f1",
+		default: "#fbbf24",
+		[LIGHT]: "#f59e0b",
 	},
 	cardBg: {
-		default: "#1a1a2e",
-		[LIGHT]: "#f8fafc",
+		default: "#18181b",
+		[LIGHT]: "#ffffff",
 	},
 	cardBorder: {
-		default: "#2a2a4e",
-		[LIGHT]: "#e2e8f0",
+		default: "#27272a",
+		[LIGHT]: "#e4e4e7",
 	},
 	success: "#22c55e",
 	warning: "#f59e0b",
@@ -38,22 +39,26 @@ export const colors = stylex.defineVars({
 		[LIGHT]: "#71717a",
 	},
 	mutedForeground: {
-		default: "#71717a",
+		default: "#52525b",
 		[LIGHT]: "#a1a1aa",
 	},
 	darkBg: {
-		default: "#0a0a0a",
-		[LIGHT]: "#f1f5f9",
+		default: "#09090b",
+		[LIGHT]: "#f4f4f5",
 	},
 	gradientStart: {
-		default: "#1a1a2e",
-		[LIGHT]: "#f8fafc",
+		default: "#18181b",
+		[LIGHT]: "#ffffff",
 	},
 	gradientEnd: {
-		default: "#16213e",
-		[LIGHT]: "#e2e8f0",
+		default: "#27272a",
+		[LIGHT]: "#f4f4f5",
 	},
-	purple: "#a855f7",
+	// Secondary accent
+	accent: {
+		default: "#fafafa",
+		[LIGHT]: "#18181b",
+	},
 });
 
 export const spacing = stylex.defineVars({
@@ -67,10 +72,10 @@ export const spacing = stylex.defineVars({
 });
 
 export const radius = stylex.defineVars({
-	sm: "4px",
-	md: "8px",
-	lg: "12px",
-	xl: "16px",
+	sm: "2px",
+	md: "4px",
+	lg: "6px",
+	xl: "8px",
 	full: "50%",
 });
 

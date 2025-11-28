@@ -1,4 +1,5 @@
 import * as stylex from "@stylexjs/stylex";
+import { Hash, Shapes, Triangle } from "lucide-react";
 import { useState } from "react";
 
 import { colors, fontSize, radius, spacing } from "../../styles/tokens.stylex";
@@ -71,6 +72,15 @@ const styles = stylex.create({
 		color: colors.primary,
 		fontSize: fontSize.lg,
 	},
+	titleIcon: {
+		display: "inline-flex",
+		verticalAlign: "middle",
+		marginRight: spacing.sm,
+	},
+	infoIcon: {
+		display: "inline-flex",
+		marginRight: spacing.xs,
+	},
 });
 
 export function FractalExplorer() {
@@ -87,7 +97,7 @@ export function FractalExplorer() {
 					<polygon
 						key={`${x}-${y}-${size}`}
 						points={`${x},${y + h} ${x + size / 2},${y} ${x + size},${y + h}`}
-						fill="#6366f1"
+						fill="#f59e0b"
 						opacity={0.8}
 					/>,
 				);
@@ -107,7 +117,12 @@ export function FractalExplorer() {
 
 	return (
 		<div {...stylex.props(styles.fractalApp)}>
-			<h2 {...stylex.props(styles.title)}>🔷 프랙탈 탐험기</h2>
+			<h2 {...stylex.props(styles.title)}>
+				<span {...stylex.props(styles.titleIcon)}>
+					<Shapes size={20} aria-hidden="true" />
+				</span>
+				프랙탈 탐험기
+			</h2>
 			<p {...stylex.props(styles.description)}>
 				프랙탈은 <strong {...stylex.props(styles.highlight)}>자기유사성</strong>을 가진 구조입니다.
 				부분이 전체와 비슷한 모양을 가집니다.
@@ -132,11 +147,21 @@ export function FractalExplorer() {
 
 			<div {...stylex.props(styles.infoContainer)}>
 				<div {...stylex.props(styles.infoCard)}>
-					<span {...stylex.props(styles.infoLabel)}>🔢 삼각형 개수</span>
+					<span {...stylex.props(styles.infoLabel)}>
+						<span {...stylex.props(styles.infoIcon)}>
+							<Hash size={14} aria-hidden="true" />
+						</span>
+						삼각형 개수
+					</span>
 					<strong {...stylex.props(styles.infoValue)}>{3 ** iteration}</strong>
 				</div>
 				<div {...stylex.props(styles.infoCard)}>
-					<span {...stylex.props(styles.infoLabel)}>📐 하우스도르프 차원</span>
+					<span {...stylex.props(styles.infoLabel)}>
+						<span {...stylex.props(styles.infoIcon)}>
+							<Triangle size={14} aria-hidden="true" />
+						</span>
+						하우스도르프 차원
+					</span>
 					<strong {...stylex.props(styles.infoValue)}>≈ 1.585</strong>
 				</div>
 			</div>

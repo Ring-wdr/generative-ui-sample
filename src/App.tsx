@@ -2,6 +2,7 @@ import "./App.css";
 
 import * as stylex from "@stylexjs/stylex";
 
+import { ScrollProgress } from "./components/ui";
 import { Page } from "./features/demo";
 import { colors } from "./styles/tokens.stylex";
 
@@ -20,6 +21,7 @@ const globalStyles = stylex.create({
 const App = () => {
 	return (
 		<div {...stylex.props(globalStyles.root)}>
+			<ScrollProgress />
 			<Page />
 		</div>
 	);

@@ -5,27 +5,21 @@ import { colors, radius, spacing } from "./tokens.stylex";
 // Media query for light mode
 const LIGHT = "@media (prefers-color-scheme: light)";
 
-// 공통으로 사용되는 gradient 스타일
+// 공통으로 사용되는 gradient 스타일 - Game-inspired flat design
 export const gradients = stylex.create({
 	primary: {
-		backgroundImage: "linear-gradient(135deg, #6366f1 0%, #a855f7 100%)",
+		backgroundImage: "linear-gradient(135deg, #f59e0b 0%, #d97706 100%)",
 	},
 	primaryText: {
-		backgroundImage: "linear-gradient(135deg, #6366f1 0%, #a855f7 100%)",
-		backgroundClip: "text",
-		WebkitBackgroundClip: "text",
-		WebkitTextFillColor: "transparent",
+		color: colors.primary,
 	},
 	card: {
-		backgroundImage: {
-			default: "linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)",
-			[LIGHT]: "linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)",
-		},
+		backgroundColor: colors.cardBg,
 	},
 	cardHover: {
-		backgroundImage: {
-			default: "linear-gradient(135deg, #1e1e3f 0%, #2a2a4e 100%)",
-			[LIGHT]: "linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%)",
+		backgroundColor: {
+			default: "#1f1f23",
+			[LIGHT]: "#f4f4f5",
 		},
 	},
 });

@@ -1,4 +1,5 @@
 import * as stylex from "@stylexjs/stylex";
+import { Layers, RefreshCw, Trophy } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 import { colors, fontSize, fontWeight, radius, spacing } from "../../styles/tokens.stylex";
@@ -37,7 +38,7 @@ const styles = stylex.create({
 		fontSize: fontSize.sm,
 		transition: "background-color 0.2s",
 		":hover": {
-			backgroundColor: "#3a3a5e",
+			backgroundColor: colors.gradientEnd,
 		},
 	},
 	grid: {
@@ -79,9 +80,24 @@ const styles = stylex.create({
 		fontSize: fontSize.xxl,
 	},
 	cardFront: {
-		backgroundImage: "linear-gradient(135deg, #6366f1 0%, #a855f7 100%)",
-		color: "white",
+		backgroundColor: colors.primary,
+		color: colors.background,
 		fontWeight: fontWeight.bold,
+	},
+	titleIcon: {
+		display: "inline-flex",
+		verticalAlign: "middle",
+		marginRight: spacing.sm,
+	},
+	btnIcon: {
+		display: "inline-flex",
+		verticalAlign: "middle",
+		marginRight: spacing.xs,
+	},
+	winIcon: {
+		display: "inline-flex",
+		verticalAlign: "middle",
+		marginRight: spacing.sm,
 	},
 	cardBack: {
 		backgroundColor: colors.darkBg,
@@ -200,12 +216,20 @@ export function MemoryGame() {
 
 	return (
 		<div {...stylex.props(styles.memoryApp)}>
-			<h2 {...stylex.props(styles.title)}>🎴 메모리 게임</h2>
+			<h2 {...stylex.props(styles.title)}>
+				<span {...stylex.props(styles.titleIcon)}>
+					<Layers size={20} aria-hidden="true" />
+				</span>
+				메모리 게임
+			</h2>
 			<div {...stylex.props(styles.stats)}>
 				<span>시도: {moves}</span>
 				<span>매칭: {matches}/8</span>
 				<button onClick={resetGame} {...stylex.props(styles.resetBtn)}>
-					🔄 리셋
+					<span {...stylex.props(styles.btnIcon)}>
+						<RefreshCw size={14} aria-hidden="true" />
+					</span>
+					리셋
 				</button>
 			</div>
 
@@ -238,7 +262,12 @@ export function MemoryGame() {
 			</div>
 
 			{matches === 8 && (
-				<div {...stylex.props(styles.winMessage)}>🎉 축하합니다! {moves}번 만에 완료!</div>
+				<div {...stylex.props(styles.winMessage)}>
+					<span {...stylex.props(styles.winIcon)}>
+						<Trophy size={18} aria-hidden="true" />
+					</span>
+					축하합니다! {moves}번 만에 완료!
+				</div>
 			)}
 		</div>
 	);
