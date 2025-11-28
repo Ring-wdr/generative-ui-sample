@@ -147,7 +147,7 @@ const styles = stylex.create({
 ## Using Design Tokens
 
 ```typescript
-import { colors, spacing } from '../styles/tokens.stylex';
+import { colors, spacing } from '@/styles/tokens.stylex';
 
 const styles = stylex.create({
   card: {

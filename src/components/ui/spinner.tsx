@@ -1,7 +1,7 @@
 import type { StyleXStyles } from "@stylexjs/stylex";
 import * as stylex from "@stylexjs/stylex";
 
-import { colors, spacing } from "../../styles/tokens.stylex";
+import { colors, spacing } from "@/styles/tokens.stylex";
 
 const spinKeyframes = stylex.keyframes({
 	"0%": { transform: "rotate(0deg)" },
@@ -41,11 +41,7 @@ interface SpinnerProps {
 
 export function Spinner({ message, style, spinnerStyle }: SpinnerProps) {
 	return (
-		<output
-			{...stylex.props(styles.container, style)}
-			aria-live="polite"
-			aria-busy="true"
-		>
+		<output {...stylex.props(styles.container, style)} aria-live="polite" aria-busy="true">
 			<div {...stylex.props(styles.spinner, spinnerStyle)} aria-hidden="true" />
 			{message && <p>{message}</p>}
 		</output>

@@ -2,7 +2,7 @@ import * as stylex from "@stylexjs/stylex";
 import { Hash, Shapes, Triangle } from "lucide-react";
 import { useState } from "react";
 
-import { colors, fontSize, radius, spacing } from "../../styles/tokens.stylex";
+import { colors, fontSize, radius, spacing } from "@/styles/tokens.stylex";
 
 const styles = stylex.create({
 	fractalApp: {

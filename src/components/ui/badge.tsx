@@ -1,8 +1,8 @@
 import type { StyleXStyles } from "@stylexjs/stylex";
 import * as stylex from "@stylexjs/stylex";
 
-import { gradients } from "../../styles/common.stylex";
-import { colors, fontSize, radius, spacing } from "../../styles/tokens.stylex";
+import { gradients } from "@/styles/common.stylex";
+import { colors, fontSize, radius, spacing } from "@/styles/tokens.stylex";
 
 const styles = stylex.create({
 	base: {

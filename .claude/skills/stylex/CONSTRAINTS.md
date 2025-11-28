@@ -126,7 +126,7 @@ export const colors = stylex.defineVars({
 });
 
 // component.tsx
-import { colors } from '../styles/tokens.stylex';
+import { colors } from '@/styles/tokens.stylex';
 
 const styles = stylex.create({
   box: {

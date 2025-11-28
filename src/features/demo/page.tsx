@@ -12,6 +12,8 @@ import {
 } from "lucide-react";
 import { useRef, useState } from "react";
 
+import { colors, fontSize, fontWeight, radius, spacing } from "@/styles/tokens.stylex";
+
 import {
 	Badge,
 	Card,
@@ -22,7 +24,6 @@ import {
 	Spinner,
 } from "../../components/ui";
 import { useScrollAnimation } from "../../hooks";
-import { colors, fontSize, fontWeight, radius, spacing } from "../../styles/tokens.stylex";
 import { EXAMPLE_PROMPTS, MARKDOWN_RESPONSES } from "./data";
 import { GenerativeUIRenderer } from "./generative-ui-renderer";
 
@@ -214,6 +215,7 @@ const styles = stylex.create({
 		display: "grid",
 		gridTemplateColumns: "0.9fr 1.1fr",
 		gap: spacing.xl,
+		alignItems: "start",
 		"@media (max-width: 900px)": {
 			gridTemplateColumns: "1fr",
 		},
@@ -541,7 +543,9 @@ export function Page() {
 								</CardTitle>
 							</CardHeader>
 							<CardContent style={styles.markdownContent}>
-								<pre {...stylex.props(styles.markdownPre)}>{MARKDOWN_RESPONSES[selectedPrompt]}</pre>
+								<pre {...stylex.props(styles.markdownPre)}>
+									{MARKDOWN_RESPONSES[selectedPrompt]}
+								</pre>
 							</CardContent>
 							<CardFooter>
 								<span {...stylex.props(styles.cardFooterItem)}>

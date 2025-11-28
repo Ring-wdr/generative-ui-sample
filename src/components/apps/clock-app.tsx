@@ -2,7 +2,7 @@ import * as stylex from "@stylexjs/stylex";
 import { Clock } from "lucide-react";
 import { useEffect, useState } from "react";
 
-import { colors, fontSize, fontWeight, radius, spacing } from "../../styles/tokens.stylex";
+import { colors, fontSize, fontWeight, radius, spacing } from "@/styles/tokens.stylex";
 
 // keyframes must be defined in the same file where they're used
 const blinkKeyframes = stylex.keyframes({
@@ -97,7 +97,6 @@ export function ClockApp() {
 	const hours = time.getHours().toString().padStart(2, "0");
 	const minutes = time.getMinutes().toString().padStart(2, "0");
 	const seconds = time.getSeconds().toString().padStart(2, "0");
-
 
 	return (
 		<div {...stylex.props(styles.clockApp)}>

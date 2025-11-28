@@ -65,7 +65,7 @@ This project uses StyleX for CSS-in-JS styling. Follow these rules:
    });
 
    // component.tsx
-   import { colors } from "../styles/tokens.stylex";
+   import { colors } from "@/styles/tokens.stylex";
    const styles = stylex.create({
      container: {
        backgroundColor: colors.background, // Works fine

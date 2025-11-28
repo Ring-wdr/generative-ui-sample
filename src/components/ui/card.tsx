@@ -1,7 +1,6 @@
 import * as stylex from "@stylexjs/stylex";
-import type { StyleXStyles } from "@stylexjs/stylex";
 
-import { colors, fontSize, radius, spacing } from "../../styles/tokens.stylex";
+import { colors, fontSize, radius, spacing } from "@/styles/tokens.stylex";
 
 const styles = stylex.create({
 	card: {
@@ -11,6 +10,8 @@ const styles = stylex.create({
 		borderStyle: "solid",
 		borderColor: colors.cardBorder,
 		overflow: "hidden",
+		display: "flex",
+		flexDirection: "column",
 	},
 	padded: {
 		padding: spacing.xl,
@@ -29,7 +30,10 @@ const styles = stylex.create({
 		color: colors.foreground,
 	},
 	content: {
-		padding: spacing.lg,
+		paddingTop: spacing.lg,
+		paddingBottom: spacing.lg,
+		paddingLeft: spacing.lg,
+		paddingRight: spacing.lg,
 	},
 	footer: {
 		paddingTop: spacing.md,
@@ -49,7 +53,7 @@ const styles = stylex.create({
 interface CardProps {
 	children: React.ReactNode;
 	padded?: boolean;
-	style?: StyleXStyles;
+	style?: stylex.StyleXStyles;
 	/** 카드의 역할을 설명하는 접근성 라벨 */
 	"aria-label"?: string;
 	/** 카드를 region으로 마킹할지 여부 */
@@ -76,20 +80,16 @@ export function Card({
 
 interface CardHeaderProps {
 	children: React.ReactNode;
-	style?: StyleXStyles;
+	style?: stylex.StyleXStyles;
 }
 
 export function CardHeader({ children, style }: CardHeaderProps) {
-	return (
-		<header {...stylex.props(styles.header, style)}>
-			{children}
-		</header>
-	);
+	return <header {...stylex.props(styles.header, style)}>{children}</header>;
 }
 
 interface CardTitleProps {
 	children: React.ReactNode;
-	style?: StyleXStyles;
+	style?: stylex.StyleXStyles;
 	/** 제목 레벨 (기본값: h3) */
 	as?: "h2" | "h3" | "h4";
 	/** 제목 ID (aria-labelledby에 사용) */
@@ -106,26 +106,18 @@ export function CardTitle({ children, style, as: Component = "h3", id }: CardTit
 
 interface CardContentProps {
 	children: React.ReactNode;
-	style?: StyleXStyles;
+	style?: stylex.StyleXStyles;
 }
 
 export function CardContent({ children, style }: CardContentProps) {
-	return (
-		<div {...stylex.props(styles.content, style)}>
-			{children}
-		</div>
-	);
+	return <div {...stylex.props(styles.content, style)}>{children}</div>;
 }
 
 interface CardFooterProps {
 	children: React.ReactNode;
-	style?: StyleXStyles;
+	style?: stylex.StyleXStyles;
 }
 
 export function CardFooter({ children, style }: CardFooterProps) {
-	return (
-		<footer {...stylex.props(styles.footer, style)}>
-			{children}
-		</footer>
-	);
+	return <footer {...stylex.props(styles.footer, style)}>{children}</footer>;
 }

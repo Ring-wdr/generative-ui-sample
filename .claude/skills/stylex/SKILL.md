@@ -6,7 +6,7 @@ Provides StyleX CSS-in-JS patterns for React components. Use when creating or mi
 
 ```typescript
 import * as stylex from '@stylexjs/stylex';
-import { colors } from '../styles/tokens.stylex';
+import { colors } from '@/styles/tokens.stylex';
 
 const styles = stylex.create({
   container: {
