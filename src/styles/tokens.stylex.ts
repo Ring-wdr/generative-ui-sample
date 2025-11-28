@@ -1,21 +1,58 @@
 import * as stylex from "@stylexjs/stylex";
 
+// Media query for light mode
+const LIGHT = "@media (prefers-color-scheme: light)";
+
 // Design tokens as CSS variables using defineVars
+// Default: dark theme, Light theme via prefers-color-scheme
 export const colors = stylex.defineVars({
-	background: "#0a0a0a",
-	foreground: "#ededed",
-	primary: "#6366f1",
-	primaryHover: "#818cf8",
-	cardBg: "#1a1a2e",
-	cardBorder: "#2a2a4e",
+	background: {
+		default: "#0a0a0a",
+		[LIGHT]: "#ffffff",
+	},
+	foreground: {
+		default: "#ededed",
+		[LIGHT]: "#171717",
+	},
+	primary: {
+		default: "#6366f1",
+		[LIGHT]: "#4f46e5",
+	},
+	primaryHover: {
+		default: "#818cf8",
+		[LIGHT]: "#6366f1",
+	},
+	cardBg: {
+		default: "#1a1a2e",
+		[LIGHT]: "#f8fafc",
+	},
+	cardBorder: {
+		default: "#2a2a4e",
+		[LIGHT]: "#e2e8f0",
+	},
 	success: "#22c55e",
 	warning: "#f59e0b",
 	error: "#ef4444",
-	muted: "#a1a1aa",
-	mutedForeground: "#71717a",
-	darkBg: "#0a0a0a",
-	gradientStart: "#1a1a2e",
-	gradientEnd: "#16213e",
+	muted: {
+		default: "#a1a1aa",
+		[LIGHT]: "#71717a",
+	},
+	mutedForeground: {
+		default: "#71717a",
+		[LIGHT]: "#a1a1aa",
+	},
+	darkBg: {
+		default: "#0a0a0a",
+		[LIGHT]: "#f1f5f9",
+	},
+	gradientStart: {
+		default: "#1a1a2e",
+		[LIGHT]: "#f8fafc",
+	},
+	gradientEnd: {
+		default: "#16213e",
+		[LIGHT]: "#e2e8f0",
+	},
 	purple: "#a855f7",
 });
 

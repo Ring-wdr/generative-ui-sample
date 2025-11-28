@@ -98,7 +98,7 @@ const styles = stylex.create({
 		fontSize: fontSize.md,
 		":hover": {
 			borderColor: colors.primary,
-			backgroundColor: "#1e1e3f",
+			backgroundColor: colors.gradientStart,
 		},
 		":focus-visible": {
 			outline: "2px solid",
