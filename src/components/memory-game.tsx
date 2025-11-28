@@ -54,6 +54,8 @@ const styles = stylex.create({
 		aspectRatio: "1",
 		perspective: "1000px",
 		cursor: "pointer",
+		backgroundColor: "transparent",
+		borderStyle: "none",
 	},
 	cardInner: {
 		position: "relative",

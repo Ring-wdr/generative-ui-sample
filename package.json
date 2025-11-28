@@ -1,6 +1,6 @@
 {
 	"name": "generative-ui-sample",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Generative UI sample project with React, Rsbuild, and StyleX",
 	"author": "Ring-wdr",
 	"license": "MIT",
