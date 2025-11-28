@@ -1,22 +1,28 @@
-import './App.css';
+import "./App.css";
 
-import * as stylex from '@stylexjs/stylex';
+import * as stylex from "@stylexjs/stylex";
 
-const styles = stylex.create({
-  button: {
-    color: 'red',
-    backgroundColor: 'blue',
-  }
-})
+import { Page } from "./components/page";
+import { colors } from "./styles/tokens.stylex";
+
+// Global styles
+const globalStyles = stylex.create({
+	root: {
+		minHeight: "100vh",
+		backgroundColor: colors.background,
+		color: colors.foreground,
+		fontFamily: "system-ui, sans-serif",
+		WebkitFontSmoothing: "antialiased",
+		MozOsxFontSmoothing: "grayscale",
+	},
+});
 
 const App = () => {
-  return (
-    <div className="content">
-      <h1>Rsbuild with React</h1>
-      <p>Start building amazing things with Rsbuild.</p>
-      <button {...stylex.props(styles.button)}>Click me</button>
-    </div>
-  );
+	return (
+		<div {...stylex.props(globalStyles.root)}>
+			<Page />
+		</div>
+	);
 };
 
 export default App;

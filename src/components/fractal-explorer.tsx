@@ -1,0 +1,143 @@
+import * as stylex from "@stylexjs/stylex";
+import { useState } from "react";
+
+import { colors, fontSize, radius, spacing } from "../styles/tokens.stylex";
+
+const styles = stylex.create({
+	fractalApp: {
+		width: "100%",
+	},
+	title: {
+		fontSize: fontSize.xl,
+		marginBottom: spacing.sm,
+		color: colors.foreground,
+		textAlign: "center",
+	},
+	description: {
+		color: colors.muted,
+		fontSize: fontSize.base,
+		textAlign: "center",
+		marginBottom: spacing.lg,
+	},
+	highlight: {
+		color: colors.primary,
+	},
+	controls: {
+		display: "flex",
+		alignItems: "center",
+		justifyContent: "center",
+		gap: spacing.lg,
+		marginBottom: spacing.lg,
+	},
+	controlLabel: {
+		color: colors.muted,
+		fontSize: fontSize.base,
+	},
+	rangeInput: {
+		width: 150,
+		accentColor: colors.primary,
+	},
+	svg: {
+		width: "100%",
+		maxWidth: 280,
+		display: "block",
+		marginTop: 0,
+		marginBottom: spacing.lg,
+		marginLeft: "auto",
+		marginRight: "auto",
+	},
+	infoContainer: {
+		display: "flex",
+		justifyContent: "center",
+		gap: spacing.lg,
+	},
+	infoCard: {
+		display: "flex",
+		flexDirection: "column",
+		paddingTop: spacing.md,
+		paddingBottom: spacing.md,
+		paddingLeft: spacing.lg,
+		paddingRight: spacing.lg,
+		backgroundColor: colors.darkBg,
+		borderRadius: radius.md,
+		fontSize: fontSize.sm,
+		textAlign: "center",
+	},
+	infoLabel: {
+		color: colors.mutedForeground,
+		marginBottom: spacing.xs,
+	},
+	infoValue: {
+		color: colors.primary,
+		fontSize: fontSize.lg,
+	},
+});
+
+export function FractalExplorer() {
+	const [iteration, setIteration] = useState(3);
+
+	const generateSierpinski = (
+		x: number,
+		y: number,
+		size: number,
+		depth: number,
+	): React.ReactNode[] => {
+		if (depth === 0) {
+			const h = (size * Math.sqrt(3)) / 2;
+			return [
+				<polygon
+					key={`${x}-${y}-${size}`}
+					points={`${x},${y + h} ${x + size / 2},${y} ${x + size},${y + h}`}
+					fill="#6366f1"
+					opacity={0.8}
+				/>,
+			];
+		}
+
+		const newSize = size / 2;
+		const h = (newSize * Math.sqrt(3)) / 2;
+		return [
+			...generateSierpinski(x, y + h, newSize, depth - 1),
+			...generateSierpinski(x + newSize / 2, y, newSize, depth - 1),
+			...generateSierpinski(x + newSize, y + h, newSize, depth - 1),
+		];
+	};
+
+	return (
+		<div {...stylex.props(styles.fractalApp)}>
+			<h2 {...stylex.props(styles.title)}>🔷 프랙탈 탐험기</h2>
+			<p {...stylex.props(styles.description)}>
+				프랙탈은 <strong {...stylex.props(styles.highlight)}>자기유사성</strong>을 가진 구조입니다.
+				부분이 전체와 비슷한 모양을 가집니다.
+			</p>
+
+			<div {...stylex.props(styles.controls)}>
+				<div {...stylex.props(styles.controlLabel)}>반복 횟수: {iteration}</div>
+				<input
+					{...stylex.props(styles.rangeInput)}
+					type="range"
+					min="0"
+					max="6"
+					value={iteration}
+					onChange={(e) => setIteration(Number(e.target.value))}
+				/>
+			</div>
+
+			<svg viewBox="0 0 300 260" {...stylex.props(styles.svg)}>
+				<title>프랙탈</title>
+				{generateSierpinski(0, 0, 300, iteration)}
+			</svg>
+
+			<div {...stylex.props(styles.infoContainer)}>
+				<div {...stylex.props(styles.infoCard)}>
+					<span {...stylex.props(styles.infoLabel)}>🔢 삼각형 개수</span>
+					<strong {...stylex.props(styles.infoValue)}>{3 ** iteration}</strong>
+				</div>
+				<div {...stylex.props(styles.infoCard)}>
+					<span {...stylex.props(styles.infoLabel)}>📐 하우스도르프 차원</span>
+					<strong {...stylex.props(styles.infoValue)}>≈ 1.585</strong>
+				</div>
+			</div>
+		</div>
+	);
+}
