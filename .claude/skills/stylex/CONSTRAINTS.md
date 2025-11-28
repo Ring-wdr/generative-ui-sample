@@ -7,6 +7,7 @@ Limitations and required workarounds for StyleX.
 - [No Shorthand Properties](#no-shorthand-properties)
 - [Keyframes Scope](#keyframes-scope)
 - [String vs Number Values](#string-vs-number-values)
+- [Flex Layout Constraints](#flex-layout-constraints)
 
 ## No Shorthand Properties
 
@@ -149,3 +150,54 @@ maxWidth: '800px',
 fontWeight: 'bold',
 display: 'flex',
 ```
+
+## Flex Layout Constraints
+
+### flex: 1 + maxHeight 충돌
+
+`flex: 1`과 `maxHeight`를 동시에 사용하면 `flex: 1`이 무시됨.
+
+```typescript
+// 문제 상황
+content: {
+  flex: 1,           // 무시됨
+  maxHeight: 400,    // 이게 우선
+},
+```
+
+**해결책:** 내부 요소에 maxHeight를 적용하고 wrapper에 flex: 1 적용
+
+```typescript
+// Wrapper
+contentWrapper: {
+  flex: 1,
+},
+
+// Inner scrollable area
+scrollArea: {
+  maxHeight: 400,
+  overflowY: 'auto',
+},
+```
+
+### Grid + Card Equal Height 제약
+
+CSS Grid에서 동일 높이 카드 + 여백 없음은 **불가능**.
+
+```typescript
+// Grid 기본값: align-items: stretch
+// → 카드들이 같은 높이가 됨
+// → 콘텐츠 양이 다르면 여백 필연적
+
+// 선택 1: 높이 다름 허용 (여백 없음)
+grid: {
+  alignItems: "start",
+},
+
+// 선택 2: 높이 동일 (여백은 Content 내부에)
+card: { height: "100%" },
+content: { flex: 1 },
+footer: { marginTop: "auto" },
+```
+
+자세한 패턴은 [PATTERNS.md#grid-layout-with-cards](./PATTERNS.md#grid-layout-with-cards) 참조.

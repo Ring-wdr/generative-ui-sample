@@ -10,6 +10,7 @@ Common styling patterns for this project.
 - [Media Queries](#media-queries)
 - [Animations](#animations)
 - [Dynamic Values](#dynamic-values)
+- [Grid Layout with Cards](#grid-layout-with-cards)
 
 ## Basic Styles
 
@@ -157,3 +158,63 @@ const styles = stylex.create({
   },
 });
 ```
+
+## Grid Layout with Cards
+
+### Problem: Unwanted Whitespace in Equal-Height Cards
+
+CSS Grid의 기본값 `align-items: stretch`로 인해 같은 row의 카드들이 동일한 높이를 가짐.
+콘텐츠 양이 다른 카드에서 불필요한 여백이 발생할 수 있음.
+
+**여백 발생 위치:**
+- Footer 아래: Card가 grid cell을 채우지 않을 때
+- Content와 Footer 사이: `marginTop: auto` 사용 시
+
+### Solution A: 카드 높이 다르게 허용 (권장)
+
+```typescript
+const styles = stylex.create({
+  grid: {
+    display: "grid",
+    gridTemplateColumns: "1fr 1fr",
+    gap: spacing.xl,
+    alignItems: "start",  // 각 카드가 자신의 콘텐츠에 맞는 높이
+  },
+});
+```
+
+**결과:** 카드 높이 다름, 여백 없음
+
+### Solution B: 동일 높이 + 여백을 Content 내부로
+
+```typescript
+// Card component
+const styles = stylex.create({
+  card: {
+    display: "flex",
+    flexDirection: "column",
+    height: "100%",       // Grid cell 채움
+  },
+  content: {
+    flex: 1,              // 남은 공간 채움
+  },
+  footer: {
+    marginTop: "auto",    // 하단 고정
+  },
+});
+```
+
+**결과:** 카드 높이 동일, 여백이 Content 영역 내부에 위치
+
+### Trade-off Matrix
+
+| 방식 | 카드 높이 | 여백 위치 | 적합한 상황 |
+|-----|---------|---------|-----------|
+| A (`alignItems: start`) | 다름 | 없음 | 콘텐츠 양 차이가 클 때 |
+| B (`flex: 1` + `marginTop: auto`) | 동일 | Content 내부 | 시각적 정렬이 중요할 때 |
+
+### 주의사항
+
+1. **maxHeight와 flex: 1 충돌**: Content에 `maxHeight`가 있으면 `flex: 1`이 무시됨
+2. **height: 100% 필수**: Solution B에서 Card가 grid cell을 채우려면 필요
+3. **콘텐츠 양이 다르면 여백은 필연적**: 동일 높이 + 여백 없음은 불가능
