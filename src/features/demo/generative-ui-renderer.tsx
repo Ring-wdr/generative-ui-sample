@@ -1,9 +1,6 @@
 import { ErrorBoundary } from 'react-error-boundary';
 
-import { ClockApp } from './clock-app';
-import { FractalExplorer } from './fractal-explorer';
-import { MathGame } from './math-game';
-import { MemoryGame } from './memory-game';
+import { ClockApp, FractalExplorer, MathGame, MemoryGame } from '../../components/apps';
 
 interface GenerativeUIRendererProps {
   prompt: string;

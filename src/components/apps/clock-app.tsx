@@ -1,7 +1,7 @@
 import * as stylex from "@stylexjs/stylex";
 import { useEffect, useState } from "react";
 
-import { colors, fontSize, fontWeight, radius, spacing } from "../styles/tokens.stylex";
+import { colors, fontSize, fontWeight, radius, spacing } from "../../styles/tokens.stylex";
 
 // keyframes must be defined in the same file where they're used
 const blinkKeyframes = stylex.keyframes({

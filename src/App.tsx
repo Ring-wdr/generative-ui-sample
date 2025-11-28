@@ -2,7 +2,7 @@ import "./App.css";
 
 import * as stylex from "@stylexjs/stylex";
 
-import { Page } from "./components/page";
+import { Page } from "./features/demo";
 import { colors } from "./styles/tokens.stylex";
 
 // Global styles
