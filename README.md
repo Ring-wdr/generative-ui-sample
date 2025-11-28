@@ -1,36 +1,61 @@
-# Rsbuild project
+# Generative UI Sample
 
-## Setup
+프롬프트 기반으로 동적 UI 컴포넌트를 렌더링하는 샘플 프로젝트입니다.
 
-Install the dependencies:
+## Demo
+
+[https://ring-wdr.github.io/generative-ui-sample/](https://ring-wdr.github.io/generative-ui-sample/)
+
+## Features
+
+- **Clock App** - 실시간 시계 컴포넌트
+- **Fractal Explorer** - 프랙탈 탐색기
+- **Math Game** - 덧셈 학습 게임
+- **Memory Game** - 메모리 카드 게임
+
+## Tech Stack
+
+- React 19
+- Rsbuild
+- StyleX
+- TypeScript
+
+## Getting Started
+
+### Prerequisites
+
+- [Bun](https://bun.sh/) (권장) 또는 Node.js
+
+### Installation
 
 ```bash
 bun install
 ```
 
-## Get started
-
-Start the dev server, and the app will be available at [http://localhost:3000](http://localhost:3000).
+### Development
 
 ```bash
 bun run dev
 ```
 
-Build the app for production:
+http://localhost:3000 에서 확인할 수 있습니다.
+
+### Build
 
 ```bash
 bun run build
 ```
 
-Preview the production build locally:
+### Preview
 
 ```bash
 bun run preview
 ```
 
-## Learn more
+## Deployment
 
-To learn more about Rsbuild, check out the following resources:
+GitHub Actions를 통해 main 브랜치에 push 시 자동으로 GitHub Pages에 배포됩니다.
 
-- [Rsbuild documentation](https://rsbuild.rs) - explore Rsbuild features and APIs.
-- [Rsbuild GitHub repository](https://github.com/web-infra-dev/rsbuild) - your feedback and contributions are welcome!
+## License
+
+MIT
