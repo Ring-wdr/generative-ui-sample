@@ -1,3 +1,4 @@
+import type { StyleXStyles } from "@stylexjs/stylex";
 import * as stylex from "@stylexjs/stylex";
 
 import { colors, spacing } from "../../styles/tokens.stylex";
@@ -34,13 +35,19 @@ const styles = stylex.create({
 
 interface SpinnerProps {
 	message?: string;
+	style?: StyleXStyles;
+	spinnerStyle?: StyleXStyles;
 }
 
-export function Spinner({ message }: SpinnerProps) {
+export function Spinner({ message, style, spinnerStyle }: SpinnerProps) {
 	return (
-		<div {...stylex.props(styles.container)}>
-			<div {...stylex.props(styles.spinner)} />
+		<output
+			{...stylex.props(styles.container, style)}
+			aria-live="polite"
+			aria-busy="true"
+		>
+			<div {...stylex.props(styles.spinner, spinnerStyle)} aria-hidden="true" />
 			{message && <p>{message}</p>}
-		</div>
+		</output>
 	);
 }

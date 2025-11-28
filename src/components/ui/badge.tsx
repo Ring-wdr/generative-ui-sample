@@ -1,7 +1,8 @@
+import type { StyleXStyles } from "@stylexjs/stylex";
 import * as stylex from "@stylexjs/stylex";
 
-import { colors, fontSize, radius, spacing } from "../../styles/tokens.stylex";
 import { gradients } from "../../styles/common.stylex";
+import { colors, fontSize, radius, spacing } from "../../styles/tokens.stylex";
 
 const styles = stylex.create({
 	base: {
@@ -22,18 +23,20 @@ const styles = stylex.create({
 interface BadgeProps {
 	children: React.ReactNode;
 	variant?: "default" | "highlight";
+	style?: StyleXStyles;
 }
 
-export function Badge({ children, variant = "default" }: BadgeProps) {
+export function Badge({ children, variant = "default", style }: BadgeProps) {
 	return (
-		<span
+		<output
 			{...stylex.props(
 				styles.base,
 				variant === "highlight" && gradients.primary,
 				variant === "highlight" && styles.highlight,
+				style,
 			)}
 		>
 			{children}
-		</span>
+		</output>
 	);
 }
