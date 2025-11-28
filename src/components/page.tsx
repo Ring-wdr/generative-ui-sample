@@ -330,7 +330,7 @@ export function Page() {
 		setTimeout(() => {
 			setIsGenerating(false);
 			setShowComparison(true);
-		}, 1500);
+		}, 1000);
 	};
 
 	return (

@@ -10,6 +10,13 @@ const blinkKeyframes = stylex.keyframes({
 	"100%": { opacity: 1 },
 });
 
+// 컴포넌트 외부로 이동하여 매 렌더마다 재생성 방지
+const WORLD_CITIES = [
+	{ city: "뉴욕", offset: -14 },
+	{ city: "런던", offset: -9 },
+	{ city: "도쿄", offset: 0 },
+] as const;
+
 const styles = stylex.create({
 	clockApp: {
 		width: "100%",
@@ -88,11 +95,6 @@ export function ClockApp() {
 	const minutes = time.getMinutes().toString().padStart(2, "0");
 	const seconds = time.getSeconds().toString().padStart(2, "0");
 
-	const worldCities = [
-		{ city: "뉴욕", offset: -14 },
-		{ city: "런던", offset: -9 },
-		{ city: "도쿄", offset: 0 },
-	];
 
 	return (
 		<div {...stylex.props(styles.clockApp)}>
@@ -108,7 +110,7 @@ export function ClockApp() {
 				<p {...stylex.props(styles.clockTimezone)}>서울 (KST)</p>
 			</div>
 			<div {...stylex.props(styles.worldClocks)}>
-				{worldCities.map(({ city, offset }) => {
+				{WORLD_CITIES.map(({ city, offset }) => {
 					const cityTime = new Date(time.getTime() + offset * 3600000);
 					return (
 						<div key={city} {...stylex.props(styles.worldClock)}>

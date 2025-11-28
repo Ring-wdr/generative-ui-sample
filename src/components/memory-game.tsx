@@ -1,5 +1,5 @@
 import * as stylex from "@stylexjs/stylex";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { colors, fontSize, fontWeight, radius, spacing } from "../styles/tokens.stylex";
 
@@ -128,6 +128,16 @@ export function MemoryGame() {
 	const [selected, setSelected] = useState<number[]>([]);
 	const [moves, setMoves] = useState(0);
 	const [matches, setMatches] = useState(0);
+	const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+	// 컴포넌트 언마운트 시 타이머 정리 (메모리 누수 방지)
+	useEffect(() => {
+		return () => {
+			if (timerRef.current) {
+				clearTimeout(timerRef.current);
+			}
+		};
+	}, []);
 
 	const handleCardClick = (index: number) => {
 		if (selected.length === 2 || cards[index].flipped || cards[index].matched) {
@@ -145,8 +155,13 @@ export function MemoryGame() {
 			setMoves(moves + 1);
 			const [first, second] = newSelected;
 
+			// 기존 타이머 정리
+			if (timerRef.current) {
+				clearTimeout(timerRef.current);
+			}
+
 			if (cards[first].emoji === cards[second].emoji) {
-				setTimeout(() => {
+				timerRef.current = setTimeout(() => {
 					const matchedCards = [...cards];
 					matchedCards[first].matched = true;
 					matchedCards[second].matched = true;
@@ -155,7 +170,7 @@ export function MemoryGame() {
 					setSelected([]);
 				}, 500);
 			} else {
-				setTimeout(() => {
+				timerRef.current = setTimeout(() => {
 					const resetCards = [...cards];
 					resetCards[first].flipped = false;
 					resetCards[second].flipped = false;

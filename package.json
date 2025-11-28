@@ -27,7 +27,8 @@
 	"dependencies": {
 		"@stylexjs/stylex": "^0.17.0",
 		"react": "^19.2.0",
-		"react-dom": "^19.2.0"
+		"react-dom": "^19.2.0",
+		"react-error-boundary": "^6.0.0"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.3.8",

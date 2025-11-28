@@ -1,5 +1,5 @@
 import * as stylex from "@stylexjs/stylex";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { colors, fontSize, fontWeight, radius, spacing } from "../styles/tokens.stylex";
 
@@ -96,6 +96,16 @@ export function MathGame() {
 	const [num1, setNum1] = useState(2);
 	const [num2, setNum2] = useState(3);
 	const [feedback, setFeedback] = useState<string | null>(null);
+	const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+	// 컴포넌트 언마운트 시 타이머 정리 (메모리 누수 방지)
+	useEffect(() => {
+		return () => {
+			if (timerRef.current) {
+				clearTimeout(timerRef.current);
+			}
+		};
+	}, []);
 
 	const generateProblem = () => {
 		setNum1(Math.floor(Math.random() * 5) + 1);
@@ -107,7 +117,11 @@ export function MathGame() {
 		if (answer === num1 + num2) {
 			setScore(score + 1);
 			setFeedback("🎉 정답이에요!");
-			setTimeout(generateProblem, 1500);
+			// 기존 타이머가 있으면 정리 후 새 타이머 설정
+			if (timerRef.current) {
+				clearTimeout(timerRef.current);
+			}
+			timerRef.current = setTimeout(generateProblem, 1500);
 		} else {
 			setFeedback("🤔 다시 생각해보세요!");
 		}

@@ -76,31 +76,33 @@ const styles = stylex.create({
 export function FractalExplorer() {
 	const [iteration, setIteration] = useState(3);
 
-	const generateSierpinski = (
-		x: number,
-		y: number,
-		size: number,
-		depth: number,
-	): React.ReactNode[] => {
-		if (depth === 0) {
-			const h = (size * Math.sqrt(3)) / 2;
-			return [
-				<polygon
-					key={`${x}-${y}-${size}`}
-					points={`${x},${y + h} ${x + size / 2},${y} ${x + size},${y + h}`}
-					fill="#6366f1"
-					opacity={0.8}
-				/>,
-			];
-		}
+	// 성능 최적화: spread 연산자 대신 배열 push 사용 (O(3^n) → O(n))
+	const generateSierpinski = (iteration: number): React.ReactNode[] => {
+		const polygons: React.ReactNode[] = [];
 
-		const newSize = size / 2;
-		const h = (newSize * Math.sqrt(3)) / 2;
-		return [
-			...generateSierpinski(x, y + h, newSize, depth - 1),
-			...generateSierpinski(x + newSize / 2, y, newSize, depth - 1),
-			...generateSierpinski(x + newSize, y + h, newSize, depth - 1),
-		];
+		const generate = (x: number, y: number, size: number, depth: number): void => {
+			if (depth === 0) {
+				const h = (size * Math.sqrt(3)) / 2;
+				polygons.push(
+					<polygon
+						key={`${x}-${y}-${size}`}
+						points={`${x},${y + h} ${x + size / 2},${y} ${x + size},${y + h}`}
+						fill="#6366f1"
+						opacity={0.8}
+					/>,
+				);
+				return;
+			}
+
+			const newSize = size / 2;
+			const h = (newSize * Math.sqrt(3)) / 2;
+			generate(x, y + h, newSize, depth - 1);
+			generate(x + newSize / 2, y, newSize, depth - 1);
+			generate(x + newSize, y + h, newSize, depth - 1);
+		};
+
+		generate(0, 0, 300, iteration);
+		return polygons;
 	};
 
 	return (
@@ -125,7 +127,7 @@ export function FractalExplorer() {
 
 			<svg viewBox="0 0 300 260" {...stylex.props(styles.svg)}>
 				<title>프랙탈</title>
-				{generateSierpinski(0, 0, 300, iteration)}
+				{generateSierpinski(iteration)}
 			</svg>
 
 			<div {...stylex.props(styles.infoContainer)}>
