@@ -396,7 +396,7 @@ export function Page() {
 				<p>
 					Based on the paper:{" "}
 					<a
-						href="https://arxiv.org/abs/2504.05593"
+						href="https://generativeui.github.io/static/pdfs/paper.pdf"
 						target="_blank"
 						rel="noopener noreferrer"
 						{...stylex.props(styles.footerLink)}
