@@ -2,6 +2,36 @@
 
 Provides StyleX CSS-in-JS patterns for React components. Use when creating or migrating components, handling animations, responsive design, or design tokens.
 
+## Build Configuration
+
+This project uses `@stylexswc/unplugin` (SWC-based) for StyleX compilation with Rsbuild:
+
+```typescript
+// rsbuild.config.ts
+import stylexPlugin from "@stylexswc/unplugin/rspack";
+
+export default defineConfig(({ env }) => ({
+  html: {
+    tags: [
+      { tag: "link", attrs: { rel: "stylesheet", href: "stylex.css" }, head: true, append: false },
+    ],
+  },
+  tools: {
+    rspack: {
+      plugins: [
+        stylexPlugin({
+          rsOptions: {
+            dev: env === "development",
+            treeshakeCompensation: true,
+            aliases: { "@/*": [path.join(__dirname, "src/*")] },
+          },
+        }),
+      ],
+    },
+  },
+}));
+```
+
 ## Quick Start
 
 ```typescript
@@ -23,6 +53,8 @@ const styles = stylex.create({
 1. **No shorthand properties** - Use `borderWidth`, `borderStyle`, `borderColor` instead of `border`
 2. **Keyframes are local** - `stylex.keyframes()` cannot be exported across files
 3. **Tokens are shareable** - `stylex.defineVars()` can be imported from `tokens.stylex.ts`
+4. **No inline styles for static values** - Use StyleX for all static styles, inline only for dynamic runtime values
+5. **Always use spread syntax** - `{...stylex.props(styles.x)}` not `style={styles.x}`
 
 ## Reference Files
 

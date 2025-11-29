@@ -9,7 +9,8 @@ Common styling patterns for this project.
 - [Pseudo-classes](#pseudo-classes)
 - [Media Queries](#media-queries)
 - [Animations](#animations)
-- [Dynamic Values](#dynamic-values)
+- [Static vs Dynamic Styles](#static-vs-dynamic-styles)
+- [Using Design Tokens](#using-design-tokens)
 - [Grid Layout with Cards](#grid-layout-with-cards)
 
 ## Basic Styles
@@ -115,9 +116,29 @@ const styles = stylex.create({
 });
 ```
 
-## Dynamic Values
+## Static vs Dynamic Styles
 
-For runtime-computed values, use inline style:
+### Static Styles (Always use StyleX)
+
+All static values must be defined in StyleX, not inline styles:
+
+```typescript
+// WRONG - static values in inline style
+<div style={{ marginTop: 8, color: '#333' }} />
+
+// CORRECT - static values in StyleX
+const styles = stylex.create({
+  container: {
+    marginTop: spacing.sm,
+    color: colors.foreground,
+  },
+});
+<div {...stylex.props(styles.container)} />
+```
+
+### Dynamic Styles (Use inline)
+
+Only use inline styles for truly runtime-computed values:
 
 ```typescript
 const styles = stylex.create({
@@ -127,7 +148,7 @@ const styles = stylex.create({
   },
 });
 
-// Dynamic width/height
+// Dynamic width/height from state/props
 <div
   {...stylex.props(styles.box)}
   style={{
@@ -136,7 +157,7 @@ const styles = stylex.create({
   }}
 />
 
-// Dynamic transform
+// Dynamic transform from user interaction
 <div
   {...stylex.props(styles.box)}
   style={{
@@ -144,6 +165,17 @@ const styles = stylex.create({
   }}
 />
 ```
+
+### Decision Guide
+
+| Value Source | Example | Use |
+|--------------|---------|-----|
+| Hardcoded number | `marginTop: 8` | StyleX |
+| Design token | `color: colors.muted` | StyleX |
+| CSS variable | `color: "var(--muted)"` | StyleX with token |
+| State variable | `width: \`${width}px\`` | Inline |
+| Props | `transform: \`rotate(${angle}deg)\`` | Inline |
+| User input | `backgroundColor: userColor` | Inline |
 
 ## Using Design Tokens
 

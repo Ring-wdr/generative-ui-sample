@@ -7,6 +7,8 @@ Limitations and required workarounds for StyleX.
 - [No Shorthand Properties](#no-shorthand-properties)
 - [Keyframes Scope](#keyframes-scope)
 - [String vs Number Values](#string-vs-number-values)
+- [Spread Syntax Required](#spread-syntax-required)
+- [No Static Inline Styles](#no-static-inline-styles)
 - [Flex Layout Constraints](#flex-layout-constraints)
 
 ## No Shorthand Properties
@@ -149,6 +151,38 @@ width: '100%',
 maxWidth: '800px',
 fontWeight: 'bold',
 display: 'flex',
+```
+
+## Spread Syntax Required
+
+Always use spread syntax with `stylex.props()`. Never assign StyleX styles directly to `style` prop.
+
+```typescript
+// WRONG - styles won't apply correctly
+<div style={styles.container} />
+<CardContent style={styles.content} />
+
+// CORRECT - use spread syntax
+<div {...stylex.props(styles.container)} />
+<CardContent {...stylex.props(styles.content)} />
+```
+
+## No Static Inline Styles
+
+Static values must be in StyleX, not inline styles. Only use inline for dynamic runtime values.
+
+```typescript
+// WRONG - static value in inline style
+<div style={{ marginTop: 8, color: '#333' }} />
+
+// CORRECT - static values in StyleX
+const styles = stylex.create({
+  box: { marginTop: 8, color: '#333' },
+});
+<div {...stylex.props(styles.box)} />
+
+// OK - dynamic runtime value in inline
+<div {...stylex.props(styles.box)} style={{ width: `${width}px` }} />
 ```
 
 ## Flex Layout Constraints

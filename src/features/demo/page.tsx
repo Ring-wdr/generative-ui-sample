@@ -305,6 +305,18 @@ const styles = stylex.create({
 			outlineOffset: "2px",
 		},
 	},
+	footerSubtext: {
+		marginTop: spacing.sm,
+	},
+	demoDescription: {
+		color: colors.muted,
+		marginBottom: 0,
+	},
+	iconInline: {
+		display: "inline",
+		marginRight: spacing.sm,
+		verticalAlign: "middle",
+	},
 	// Animation states
 	animateHidden: {
 		opacity: 0,
@@ -488,7 +500,7 @@ export function Page() {
 				<h2 {...stylex.props(styles.sectionTitle)} id="demo-title">
 					직접 체험해보세요
 				</h2>
-				<p style={{ color: "var(--muted)", marginBottom: 0 }}>
+				<p {...stylex.props(styles.demoDescription)}>
 					프롬프트를 선택하면 마크다운 응답과 Generative UI를 비교할 수 있습니다.
 				</p>
 
@@ -537,12 +549,12 @@ export function Page() {
 									<Type
 										size={16}
 										aria-hidden="true"
-										style={{ display: "inline", marginRight: 8, verticalAlign: "middle" }}
+										{...stylex.props(styles.iconInline)}
 									/>
 									Markdown
 								</CardTitle>
 							</CardHeader>
-							<CardContent style={styles.markdownContent}>
+							<CardContent {...stylex.props(styles.markdownContent)}>
 								<pre {...stylex.props(styles.markdownPre)}>
 									{MARKDOWN_RESPONSES[selectedPrompt]}
 								</pre>
@@ -566,12 +578,12 @@ export function Page() {
 									<Sparkles
 										size={16}
 										aria-hidden="true"
-										style={{ display: "inline", marginRight: 8, verticalAlign: "middle" }}
+										{...stylex.props(styles.iconInline)}
 									/>
 									동적 UI
 								</CardTitle>
 							</CardHeader>
-							<CardContent style={styles.generativeContent}>
+							<CardContent {...stylex.props(styles.generativeContent)}>
 								<GenerativeUIRenderer prompt={selectedPrompt} />
 							</CardContent>
 							<CardFooter>
@@ -648,7 +660,7 @@ export function Page() {
 						<span {...stylex.props(styles.srOnly)}>(새 탭에서 열림)</span>
 					</a>
 				</p>
-				<p style={{ marginTop: 8 }}>Google Research, 2025</p>
+				<p {...stylex.props(styles.footerSubtext)}>Google Research, 2025</p>
 			</footer>
 		</main>
 	);
