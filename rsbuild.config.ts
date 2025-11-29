@@ -3,7 +3,7 @@ import { fileURLToPath } from "node:url";
 
 import { defineConfig } from "@rsbuild/core";
 import { pluginReact } from "@rsbuild/plugin-react";
-import stylexPlugin from "unplugin-stylex/rspack";
+import stylexPlugin from "@stylexswc/unplugin/rspack";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -18,6 +18,14 @@ export default defineConfig(({ env }) => {
 		},
 		html: {
 			title: "Generative UI Demo - LLM이 인터페이스를 생성하는 새로운 패러다임",
+			tags: [
+				{
+					tag: "link",
+					attrs: { rel: "stylesheet", href: "stylex.css" },
+					head: true,
+					append: false,
+				},
+			],
 			meta: {
 				description:
 					"LLM이 콘텐츠뿐만 아니라 인터페이스 자체를 생성하는 Generative UI 데모. 마크다운 응답과 동적 UI를 비교해보세요.",
@@ -38,8 +46,8 @@ export default defineConfig(({ env }) => {
 			rspack: {
 				plugins: [
 					stylexPlugin({
-						dev: env === "development",
-						stylex: {
+						rsOptions: {
+							dev: env === "development",
 							treeshakeCompensation: true,
 							aliases: {
 								"@/*": [path.join(__dirname, "src/*")],
