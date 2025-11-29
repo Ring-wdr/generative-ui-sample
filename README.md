@@ -1,5 +1,17 @@
 # Generative UI Sample
 
+![Version](https://img.shields.io/badge/version-1.0.2-blue.svg)
+![License](https://img.shields.io/badge/license-MIT-green.svg)
+![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)
+![Tests](https://img.shields.io/badge/tests-57%20passed-brightgreen.svg)
+![Coverage](https://img.shields.io/badge/coverage-98.25%25-brightgreen.svg)
+
+![React](https://img.shields.io/badge/React-19.2.0-61DAFB?logo=react&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?logo=typescript&logoColor=white)
+![Bun](https://img.shields.io/badge/Bun-runtime-F9F1E1?logo=bun&logoColor=black)
+![Rsbuild](https://img.shields.io/badge/Rsbuild-1.6-FF6C37?logo=rspack&logoColor=white)
+![StyleX](https://img.shields.io/badge/StyleX-0.17-764ABC)
+
 프롬프트 기반으로 동적 UI 컴포넌트를 렌더링하는 샘플 프로젝트입니다.
 
 ## Demo
@@ -15,10 +27,14 @@
 
 ## Tech Stack
 
-- React 19
-- Rsbuild
-- StyleX
-- TypeScript
+| Category | Technology |
+|----------|------------|
+| Framework | React 19 |
+| Build Tool | Rsbuild |
+| Styling | StyleX |
+| Language | TypeScript |
+| Runtime | Bun |
+| Testing | bun:test + Testing Library |
 
 ## Getting Started
 
@@ -51,6 +67,29 @@ bun run build
 ```bash
 bun run preview
 ```
+
+## Testing
+
+```bash
+# Run tests
+bun test
+
+# Run tests in watch mode
+bun test:watch
+
+# Run tests with coverage
+bun test:coverage
+```
+
+### Test Coverage
+
+| Component | Tests | Coverage |
+|-----------|-------|----------|
+| MathGame | 11 | 97.16% |
+| ClockApp | 12 | 100% |
+| MemoryGame | 14 | 94.12% |
+| FractalExplorer | 20 | 100% |
+| **Total** | **57** | **98.25%** |
 
 ## Deployment
 
