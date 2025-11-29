@@ -83,10 +83,16 @@ const styles = stylex.create({
 		color: colors.foreground,
 		cursor: "pointer",
 		transition: "all 0.2s",
+	},
+	mathOptionEnabled: {
 		":hover": {
 			borderColor: colors.primary,
 			transform: "scale(1.05)",
 		},
+	},
+	mathOptionDisabled: {
+		opacity: 0.5,
+		cursor: "not-allowed",
 	},
 	feedback: {
 		padding: spacing.md,
@@ -103,12 +109,46 @@ const styles = stylex.create({
 	},
 });
 
+interface Problem {
+	num1: number;
+	num2: number;
+	options: number[];
+}
+
+interface GameState {
+	score: number;
+	problem: Problem;
+	feedback: "correct" | "wrong" | null;
+}
+
+function createProblem(): Problem {
+	const num1 = Math.floor(Math.random() * 5) + 1;
+	const num2 = Math.floor(Math.random() * 5) + 1;
+	const correctAnswer = num1 + num2;
+	const options = [
+		correctAnswer,
+		correctAnswer + 1,
+		correctAnswer - 1 > 0 ? correctAnswer - 1 : correctAnswer + 2,
+	].sort(() => Math.random() - 0.5);
+
+	return { num1, num2, options };
+}
+
+function createInitialState(): GameState {
+	return {
+		score: 0,
+		problem: createProblem(),
+		feedback: null,
+	};
+}
+
 export function MathGame() {
-	const [score, setScore] = useState(0);
-	const [num1, setNum1] = useState(2);
-	const [num2, setNum2] = useState(3);
-	const [feedback, setFeedback] = useState<string | null>(null);
+	const [state, setState] = useState<GameState>(createInitialState);
 	const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+	const { score, problem, feedback } = state;
+	const { num1, num2, options } = problem;
+	const isCorrect = feedback === "correct";
 
 	// 컴포넌트 언마운트 시 타이머 정리 (메모리 누수 방지)
 	useEffect(() => {
@@ -120,33 +160,29 @@ export function MathGame() {
 	}, []);
 
 	const generateProblem = () => {
-		setNum1(Math.floor(Math.random() * 5) + 1);
-		setNum2(Math.floor(Math.random() * 5) + 1);
-		setFeedback(null);
+		setState((prev) => ({
+			...prev,
+			problem: createProblem(),
+			feedback: null,
+		}));
 	};
 
 	const checkAnswer = (answer: number) => {
 		if (answer === num1 + num2) {
-			setScore(score + 1);
-			setFeedback("correct");
+			setState((prev) => ({
+				...prev,
+				score: prev.score + 1,
+				feedback: "correct",
+			}));
 			// 기존 타이머가 있으면 정리 후 새 타이머 설정
 			if (timerRef.current) {
 				clearTimeout(timerRef.current);
 			}
 			timerRef.current = setTimeout(generateProblem, 1500);
 		} else {
-			setFeedback("wrong");
+			setState((prev) => ({ ...prev, feedback: "wrong" }));
 		}
 	};
-
-	const correctAnswer = num1 + num2;
-	const options = [
-		correctAnswer,
-		correctAnswer + 1,
-		correctAnswer - 1 > 0 ? correctAnswer - 1 : correctAnswer + 2,
-	].sort(() => Math.random() - 0.5);
-
-	const isCorrect = feedback === "correct";
 
 	return (
 		<div {...stylex.props(styles.mathApp)}>
@@ -183,7 +219,15 @@ export function MathGame() {
 
 			<div {...stylex.props(styles.mathOptions)}>
 				{options.map((opt) => (
-					<button key={opt} onClick={() => checkAnswer(opt)} {...stylex.props(styles.mathOption)}>
+					<button
+						key={opt}
+						onClick={() => checkAnswer(opt)}
+						disabled={isCorrect}
+						{...stylex.props(
+							styles.mathOption,
+							isCorrect ? styles.mathOptionDisabled : styles.mathOptionEnabled,
+						)}
+					>
 						{opt}
 					</button>
 				))}
